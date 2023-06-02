@@ -1,0 +1,29 @@
+name: Ngrok Tunnel
+on:
+  push:
+    branches:
+      - main # Cambia 'main' si tu rama principal se llama de manera diferente
+
+jobs:
+  ngrok:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Ngrok
+        run: |
+          wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-arm.zip
+          unzip ngrok-stable-linux-arm.zip
+          chmod +x ngrok
+
+      - name: Start Ngrok tunnel
+        run: |
+          ./ngrok authtoken 2QenCaHBweA7QdOyrzeMILJx8St_4RqASf8m1SykYRVaNzWEh # Reemplaza con tu token de autenticación de Ngrok
+          ./ngrok http 3000 > /dev/null &
+
+      - name: Wait for Ngrok tunnel
+        run: sleep 10
+
+      - name: Display Ngrok tunnel URL
+        run: echo "Ngrok URL: $(curl --silent http://localhost:4040/api/tunnels | jq -r '.tunnels[0].public_url')"
