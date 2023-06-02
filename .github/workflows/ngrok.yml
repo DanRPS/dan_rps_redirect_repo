@@ -24,8 +24,8 @@ jobs:
 
       - name: Start Ngrok tunnel
         run: |
-          ./ngrok authtoken <tu_token_de_autenticacion> # Reemplaza con tu token de autenticación de Ngrok
-          ./ngrok http <puerto_local> > /dev/null &
+          ./ngrok authtoken 2QenCaHBweA7QdOyrzeMILJx8St_4RqASf8m1SykYRVaNzWEh # Reemplaza con tu token de autenticación de Ngrok
+          ./ngrok http 3000 > /dev/null &
 
       - name: Wait for Ngrok tunnel
         run: sleep 10
