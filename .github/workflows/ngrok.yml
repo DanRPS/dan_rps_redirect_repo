@@ -29,8 +29,7 @@ jobs:
         id: ngrok_url
         run: |
           curl --silent http://localhost:4040/api/tunnels > ngrok.json
-          NGROK_URL=$(cat ngrok.json | jq -r '.tunnels[0].public_url')
-          echo $NGROK_URL >> ngrok_url.txt
+          echo "::set-output name=url::$(cat ngrok.json | jq -r '.tunnels[0].public_url')"
 
       - name: Display Ngrok tunnel URL
-        run: echo "Ngrok URL: $(cat ngrok_url.txt)"
+        run: echo "Ngrok URL: ${{ steps.ngrok_url.outputs.url }}"
