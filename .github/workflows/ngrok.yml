@@ -26,6 +26,10 @@ jobs:
         run: |
           ./ngrok authtoken 2QenCaHBweA7QdOyrzeMILJx8St_4RqASf8m1SykYRVaNzWEh # Reemplaza con tu token de autenticación de Ngrok
           ./ngrok http 3000 > /dev/null &
+          
+      - name: Start Ngrok http
+        run: |
+          ./ngrok http 3000 > /dev/null &
 
       - name: Wait for Ngrok tunnel
         run: sleep 10
@@ -34,6 +38,10 @@ jobs:
         id: ngrok_url
         run: |
           curl --silent http://localhost:4040/api/tunnels > ngrok.json
+          
+      - name: Get Ngrok echo URL
+        id: ngrok_url_2
+        run: |
           echo "::set-output name=url::$(cat ngrok.json | jq -r '.tunnels[0].public_url')"
 
       - name: Display Ngrok tunnel URL
