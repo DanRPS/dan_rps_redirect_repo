@@ -32,4 +32,4 @@ jobs:
           echo "::set-output name=url::$(cat ngrok.json | jq -r '.tunnels[0].public_url')"
 
       - name: Display Ngrok tunnel URL
-        run: echo "Ngrok URL: ${{ steps.ngrok_url.outputs.url }}"
+        run: echo "Ngrok URL ${{ steps.ngrok_url.outputs.url }}"
