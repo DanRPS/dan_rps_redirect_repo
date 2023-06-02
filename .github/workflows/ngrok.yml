@@ -2,7 +2,7 @@ name: Ngrok Tunnel
 on:
   push:
     branches:
-      - main # Cambia 'main' si tu rama principal se llama de manera diferente
+      - main
 
 jobs:
   ngrok:
@@ -10,6 +10,11 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
 
       - name: Set up Ngrok
         run: |
@@ -19,8 +24,8 @@ jobs:
 
       - name: Start Ngrok tunnel
         run: |
-          ./ngrok authtoken 2QenCaHBweA7QdOyrzeMILJx8St_4RqASf8m1SykYRVaNzWEh # Reemplaza con tu token de autenticación de Ngrok
-          ./ngrok http 3000 > /dev/null &
+          ./ngrok authtoken <tu_token_de_autenticacion> # Reemplaza con tu token de autenticación de Ngrok
+          ./ngrok http <puerto_local> > /dev/null &
 
       - name: Wait for Ngrok tunnel
         run: sleep 10
