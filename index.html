@@ -14,8 +14,8 @@
 						if(xhr.status === 200){
 							response = xhr.response;
 							json_response = JSON.parse(response);
-							document.getElementById("status").innerHTML = "OK";
-							//window.location.href = json_response.endpoints[0].public_url;
+							document.getElementById("status").innerHTML = "Ok";
+							window.location.href = json_response.endpoints[0].public_url;
 						}else{
 							document.getElementById("status").innerHTML = "Error";
 						}
